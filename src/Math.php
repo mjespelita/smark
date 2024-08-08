@@ -217,4 +217,44 @@ class Math
     
         return $result;
     }
+
+    // Function to perform Gaussian Elimination and solve a system of linear equations
+    public static function gaussianElimination($matrix) {
+        $n = count($matrix); // Number of equations
+
+        // Forward elimination
+        for ($i = 0; $i < $n; $i++) {
+            // Search for maximum in this column
+            $maxRow = $i;
+            for ($k = $i + 1; $k < $n; $k++) {
+                if (abs($matrix[$k][$i]) > abs($matrix[$maxRow][$i])) {
+                    $maxRow = $k;
+                }
+            }
+
+            // Swap maximum row with current row (pivot)
+            $temp = $matrix[$maxRow];
+            $matrix[$maxRow] = $matrix[$i];
+            $matrix[$i] = $temp;
+
+            // Make the elements below the pivot equal to zero
+            for ($k = $i + 1; $k < $n; $k++) {
+                $factor = $matrix[$k][$i] / $matrix[$i][$i];
+                for ($j = $i; $j < $n + 1; $j++) {
+                    $matrix[$k][$j] -= $factor * $matrix[$i][$j];
+                }
+            }
+        }
+
+        // Back substitution
+        $solutions = array_fill(0, $n, 0);
+        for ($i = $n - 1; $i >= 0; $i--) {
+            $solutions[$i] = $matrix[$i][$n] / $matrix[$i][$i];
+            for ($k = $i - 1; $k >= 0; $k--) {
+                $matrix[$k][$n] -= $matrix[$k][$i] * $solutions[$i];
+            }
+        }
+
+        return $solutions;
+    }
 }
