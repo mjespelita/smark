@@ -1,6 +1,5 @@
 {
     "name": "smark/smark",
-    "version": "v0.0.5",
     "description": "Smark PHP Library",
     "type": "library",
     "license": "MIT",
