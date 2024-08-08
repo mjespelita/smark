@@ -144,4 +144,34 @@ class Math
         if ($n <= 1) return $n;
         return self::fibonacci($n - 1) + self::fibonacci($n - 2);
     }
+
+    public static function calculateQuadraticRoots($a, $b, $c) {
+        // Check if 'a' is not zero
+        if ($a == 0) {
+            return "Coefficient 'a' cannot be zero in a quadratic equation.";
+        }
+    
+        // Calculate the discriminant
+        $discriminant = ($b * $b) - (4 * $a * $c);
+    
+        // Check if the discriminant is positive, zero, or negative
+        if ($discriminant > 0) {
+            // Two real and distinct roots
+            $root1 = (-$b + sqrt($discriminant)) / (2 * $a);
+            $root2 = (-$b - sqrt($discriminant)) / (2 * $a);
+            return ["root1" => $root1, "root2" => $root2];
+        } elseif ($discriminant == 0) {
+            // One real root (double root)
+            $root = -$b / (2 * $a);
+            return ["root" => $root];
+        } else {
+            // Complex roots
+            $realPart = -$b / (2 * $a);
+            $imaginaryPart = sqrt(-$discriminant) / (2 * $a);
+            return [
+                "root1" => "$realPart + {$imaginaryPart}i",
+                "root2" => "$realPart - {$imaginaryPart}i"
+            ];
+        }
+    }
 }
