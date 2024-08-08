@@ -190,4 +190,31 @@ class Math
     
         return $a; // 'a' now contains the GCD
     }
+
+    public static function matrixMultiply($matrixA, $matrixB) {
+        // Get the dimensions of the matrices
+        $rowsA = count($matrixA);
+        $colsA = count($matrixA[0]);
+        $rowsB = count($matrixB);
+        $colsB = count($matrixB[0]);
+    
+        // Check if the matrices can be multiplied
+        if ($colsA !== $rowsB) {
+            return "Matrix multiplication not possible: Number of columns in Matrix A must equal the number of rows in Matrix B.";
+        }
+    
+        // Initialize the resulting matrix with zeros
+        $result = array_fill(0, $rowsA, array_fill(0, $colsB, 0));
+    
+        // Perform matrix multiplication
+        for ($i = 0; $i < $rowsA; $i++) {
+            for ($j = 0; $j < $colsB; $j++) {
+                for ($k = 0; $k < $colsA; $k++) {
+                    $result[$i][$j] += $matrixA[$i][$k] * $matrixB[$k][$j];
+                }
+            }
+        }
+    
+        return $result;
+    }
 }
