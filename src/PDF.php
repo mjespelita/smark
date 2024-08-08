@@ -1,8 +1,5 @@
 <?php
 
-// Include TCPDF library
-require '../vendor/autoload.php';
-
 // Extend TCPDF class to create custom header and footer
 class PDF extends TCPDF {
     // Page header
