@@ -1,6 +1,6 @@
 {
     "name": "smark/smark",
-    "version": "v0.0.3",
+    "version": "^0.0.4",
     "description": "Smark PHP Library",
     "type": "library",
     "license": "MIT",

@@ -174,4 +174,20 @@ class Math
             ];
         }
     }
+
+    public static function gcd($a, $b) {
+        // Ensure both inputs are non-negative integers
+        if ($a < 0 || $b < 0) {
+            return "Invalid input. Please enter non-negative integers.";
+        }
+    
+        // Apply the Euclidean algorithm
+        while ($b !== 0) {
+            $temp = $b;
+            $b = $a % $b;  // Calculate the remainder
+            $a = $temp;     // Update 'a' to be the previous 'b'
+        }
+    
+        return $a; // 'a' now contains the GCD
+    }
 }
