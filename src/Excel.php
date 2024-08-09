@@ -6,58 +6,93 @@ use CodexWorld\PhpXlsxGenerator;
 
 class Excel
 {
+    // Downloads an Excel file with a generated filename
     public static function downloadExcel($excelArray, $source)
     {
-        require 'excel/PhpXlsxGenerator.php';
+        require 'excel/PhpXlsxGenerator.php'; // Include the PhpXlsxGenerator library
+
         // Initialize an empty array to store associative arrays
         $sourceArray = [];
-        // Convert each user to an associative array
+        
+        // Convert each model object in the source to an associative array
         foreach ($source as $s) {
             $sourceArray[] = $s->toArray(); // Convert the model to an associative array
         }
+
+        // Append the associative arrays from source to the excelArray
         foreach ($sourceArray as $key => $value) {
             array_push($excelArray, $value);
         }
+
+        // Generate an Excel file from the array
         $xlsx = PhpXlsxGenerator::fromArray($excelArray);
-        $filename = uniqid('', true).'.'.'xlsx';
+
+        // Generate a unique filename with a .xlsx extension
+        $filename = uniqid('', true).'.xlsx';
+        
+        // Download the generated Excel file
         return $xlsx->downloadAs($filename);
     }
 
+    // Downloads an Excel file with a specified filename
     public static function downloadExcelAs($filename, $excelArray, $source)
     {
-        require 'excel/PhpXlsxGenerator.php';
+        require 'excel/PhpXlsxGenerator.php'; // Include the PhpXlsxGenerator library
+
         // Initialize an empty array to store associative arrays
         $sourceArray = [];
-        // Convert each user to an associative array
+        
+        // Convert each model object in the source to an associative array
         foreach ($source as $s) {
             $sourceArray[] = $s->toArray(); // Convert the model to an associative array
         }
+
+        // Append the associative arrays from source to the excelArray
         foreach ($sourceArray as $key => $value) {
             array_push($excelArray, $value);
         }
+
+        // Generate an Excel file from the array
         $xlsx = PhpXlsxGenerator::fromArray($excelArray);
-        return $xlsx->downloadAs($filename.'.'.'xlsx');
+
+        // Download the generated Excel file with the specified filename
+        return $xlsx->downloadAs($filename.'.xlsx');
     }
 
+    // Downloads an Excel file with a generated filename (alternative method)
     public static function _downloadExcel($excelArray, $source)
     {
-        require 'excel/PhpXlsxGenerator.php';
+        require 'excel/PhpXlsxGenerator.php'; // Include the PhpXlsxGenerator library
 
+        // Append the associative arrays from source to the excelArray
         foreach ($source as $key => $value) {
             array_push($excelArray, $value);
         }
+
+        // Generate an Excel file from the array
         $xlsx = PhpXlsxGenerator::fromArray($excelArray);
-        $filename = uniqid('', true).'.'.'xlsx';
+
+        // Generate a unique filename with a .xlsx extension
+        $filename = uniqid('', true).'.xlsx';
+        
+        // Download the generated Excel file
         return $xlsx->downloadAs($filename);
     }
 
+    // Downloads an Excel file with a specified filename (alternative method)
     public static function _downloadExcelAs($filename, $excelArray, $source)
     {
-        require 'excel/PhpXlsxGenerator.php';
+        require 'excel/PhpXlsxGenerator.php'; // Include the PhpXlsxGenerator library
+
+        // Append the associative arrays from source to the excelArray
         foreach ($source as $key => $value) {
             array_push($excelArray, $value);
         }
+
+        // Generate an Excel file from the array
         $xlsx = PhpXlsxGenerator::fromArray($excelArray);
-        return $xlsx->downloadAs($filename.'.'.'xlsx');
+
+        // Download the generated Excel file with the specified filename
+        return $xlsx->downloadAs($filename.'.xlsx');
     }
 }
