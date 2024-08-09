@@ -2,6 +2,13 @@
 
 namespace Smark\Smark;
 
+/**
+ * calculateAge($dob)
+ * humanReadableDate($date)
+ * getWeekdays($startDate, $endDate)
+ * getDays($startDate, $endDate)
+ */
+
 use DateInterval;
 use DatePeriod;
 use DateTime;

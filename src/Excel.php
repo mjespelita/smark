@@ -2,6 +2,13 @@
 
 namespace Smark\Smark;
 
+/**
+ * downloadExcel($excelArray, $source)
+ * downloadExcelAs($filename, $excelArray, $source)
+ * _downloadExcel($excelArray, $source)
+ * _downloadExcelAs($filename, $excelArray, $source)
+ */
+
 use CodexWorld\PhpXlsxGenerator;
 
 class Excel

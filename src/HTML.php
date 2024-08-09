@@ -2,6 +2,15 @@
 
 namespace Smark\Smark;
 
+/**
+ * renderHTML($code)
+ * withURL($string)
+ * generateQRCode($data)
+ * generateBarCode($data)
+ * filamentMonths()
+ * filamentYears($startYear)
+ */
+
 use chillerlan\QRCode\QRCode;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use VStelmakh\UrlHighlight\UrlHighlight;

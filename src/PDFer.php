@@ -2,6 +2,10 @@
 
 namespace Smark\Smark;
 
+/**
+ * export($data)
+ */
+
 use PDF;
 
 class PDFer

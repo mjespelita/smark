@@ -2,6 +2,10 @@
 
 namespace Smark\Smark;
 
+/**
+ * paymongoCreatePaymentLink($paymentDetails)
+ */
+
 use GuzzleHttp\Client;
 
 class Payment

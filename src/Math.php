@@ -2,6 +2,21 @@
 
 namespace Smark\Smark;
 
+/**
+ * compute($method, $nums)
+ * isEven($num)
+ * linearRegression($xValues, $yValues, $result)
+ * calculateTotalPrice($items, $discountThreshold, $discountRate, $taxRate)
+ * calculateBMI($weight, $height)
+ * generateReceiptNumber()
+ * factorial($number)
+ * fibonacci($n)
+ * calculateQuadraticRoots($a, $b, $c)
+ * gcd($a, $b)
+ * matrixMultiply($matrixA, $matrixB)
+ * gaussianElimination($matrix)
+ */
+
 class Math
 {
     // Method to perform arithmetic operations based on the given method

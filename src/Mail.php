@@ -2,6 +2,20 @@
 
 namespace Smark\Smark;
 
+/**
+ * sendMail(
+        $senderMail,
+        $senderAppPassword,
+        $setFrom,
+        $setFromName,
+        $recieverEmail,
+        $replyToEmail,
+        $replyToName,
+        $subject,
+        $body
+    )
+ */
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 

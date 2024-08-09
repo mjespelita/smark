@@ -2,6 +2,16 @@
 
 namespace Smark\Smark;
 
+/**
+ * $filename
+ * upload($request, $path)
+ * removeFile($path)
+ * 
+ * $_filename
+ * _upload($filename_input, $file_path, $filename_valid_extension)
+ * 
+ */
+
 class File
 {
     public static $filename; // Static property to store the filename of the uploaded file

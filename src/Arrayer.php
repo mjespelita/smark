@@ -2,6 +2,11 @@
 
 namespace Smark\Smark;
 
+/**
+ * flattenArray($array)
+ * uniqueMultidimensionalArray($array, $key)
+ */
+
 class Arrayer
 {
     // Flattens a multidimensional array into a single-dimensional array

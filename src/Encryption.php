@@ -2,6 +2,11 @@
 
 namespace Smark\Smark;
 
+/**
+ * encrypter($data, $key)
+ * decrypter($data, $key)
+ */
+
 class Encryption
 {
     // Encrypts data using a specified key

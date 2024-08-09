@@ -2,6 +2,15 @@
 
 namespace Smark\Smark;
 
+/**
+ * jsonRead($json_filename)
+ * jsonPush($json_filename, $data_to_be_inserted)
+ * jsonUnshift($json_filename, $data_to_be_inserted)
+ * jsonDelete($json_filename, $data_key_to_be_deleted, $data_value_to_be_deleted)
+ * jsonUpdate($json_filename, $data_key_to_be_updated, $data_value_to_be_updated, $key_to_insert_new_updated_data, $new_updated_data)
+ * handleError($message)
+ */
+
 class JSON
 {
     // Reads and decodes JSON data from a file

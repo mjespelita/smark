@@ -2,6 +2,13 @@
 
 namespace Smark\Smark;
 
+/**
+ * toCamelCase($string)
+ * truncateString($string, $length)
+ * sanitizeInput($input)
+ * generateSlug($string)
+ */
+
 class Stringer
 {
     // Convert a string to CamelCase
