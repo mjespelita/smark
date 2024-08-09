@@ -45,4 +45,24 @@ class Dater
 
         return $weekdays; // Return the array of weekdays
     }
+
+    // Gets all days between the start date and end date
+    public static function getDays($startDate, $endDate) {
+        // Create a DatePeriod object to iterate over each day between the start and end dates
+        $period = new DatePeriod(
+            new DateTime($startDate), // Start date
+            new DateInterval('P1D'), // Interval of 1 day
+            new DateTime($endDate) // End date
+        );
+
+        $weekdays = []; // Initialize an empty array to store weekdays
+
+        // Iterate through each date in the period
+        foreach ($period as $date) {
+            // Add the date in "Y-m-d" format to the weekdays array
+            $weekdays[] = $date->format('Y-m-d');
+        }
+
+        return $weekdays; // Return the array of weekdays
+    }
 }
