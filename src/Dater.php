@@ -4,7 +4,12 @@ namespace Smark\Smark;
 
 /**
  * calculateAge($dob)
- * humanReadableDate($date)
+ * humanReadableDateWithDayAndTime($date)   // Month day, Year (Day of the week) hour:minute am/pm
+ * humanReadableDateWithDay($date)          // Month day, Year (Day of the week)
+ * humanReadableDate($date)                 // Month day, Year
+ * humanReadableDay($date)                  // Day of the week
+ * humanReadableTime($date)                 // hour:minute am/pm
+ * humanReadableMonth($date)                // Month word
  * getWeekdays($startDate, $endDate)
  * getDays($startDate, $endDate)
  */
@@ -24,10 +29,40 @@ class Dater
         return $currentDate->diff($birthDate)->y;
     }
 
-    // Converts a date string to a human-readable format
-    public static function humanReadableDate($date) {
+    // Converts a date with day and time string to a human-readable format
+    public static function humanReadableDateWithDayAndTime($date) {
         // Format the date as "Month day, Year (Day of the week) hour:minute am/pm"
         return date('F j, Y (l) g:i a', strtotime($date));
+    }
+
+    // Converts a date with day string to a human-readable format
+    public static function humanReadableDateWithDay($date) {
+        // Format the date as "Month day, Year (Day of the week)"
+        return date('F j, Y (l)', strtotime($date));
+    }
+
+    // Converts a date with day string to a human-readable format
+    public static function humanReadableDate($date) {
+        // Format the date as "Month day, Year"
+        return date('F j, Y', strtotime($date));
+    }
+
+    // Converts a day string to a human-readable format
+    public static function humanReadableDay($date) {
+        // Format the date as "Day of the week"
+        return date('l', strtotime($date));
+    }
+
+    // Converts a time string to a human-readable format
+    public static function humanReadableTime($date) {
+        // Format the date or time as "hour:minute am/pm"
+        return date('g:i a', strtotime($date));
+    }
+
+    // Converts a time string to a human-readable format
+    public static function humanReadableMonth($date) {
+        // Format the date or time as "Month"
+        return date('F', strtotime($date));
     }
 
     // Gets all weekdays between the start date and end date
