@@ -1,0 +1,10 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('content'); ?>
+ <main>
+
+ <?php /* Silence is golden. */ ?>
+
+ </main>
+<?php $this->stopSection(); ?>
+ 
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layouts.app'); } ?>

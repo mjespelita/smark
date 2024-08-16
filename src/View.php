@@ -16,7 +16,7 @@ class View
 <head>
     <meta charset=\"UTF-8\">
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-    <title>Black Pearl</title>
+    <title>App</title>
 </head>
 <body>
     @yield('content')
@@ -46,8 +46,12 @@ class View
             mkdir($views."/layouts/");
         }
 
-        if (!file_exists($views."/".$view.".blade.php")) {
-            file_put_contents($views."/layouts/app.blade.php", $layout);
+        if (!file_exists($views."/".$view.".blade.php") ) {
+
+            if (!file_exists($views.'/layouts/app.blade.php')) {
+                file_put_contents($views."/layouts/app.blade.php", $layout);
+            }
+
             file_put_contents($views."/".$view.".blade.php", $page);
 
             $blade = new BladeOne($views,$cache,BladeOne::MODE_DEBUG);
