@@ -24,6 +24,7 @@
         "phpmailer/phpmailer": "^6.9",
         "symfony/dom-crawler": "^7.1",
         "symfony/css-selector": "^7.1",
-        "eftec/bladeone": "^4.13"
+        "eftec/bladeone": "^4.13",
+        "erusev/parsedown": "^1.7"
     }
 }

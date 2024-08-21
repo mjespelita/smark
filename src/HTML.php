@@ -9,9 +9,11 @@ namespace Smark\Smark;
  * generateBarCode($data)
  * filamentMonths()
  * filamentYears($startYear)
+ * readMarkdown()
  */
 
 use chillerlan\QRCode\QRCode;
+use Parsedown;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use VStelmakh\UrlHighlight\UrlHighlight;
 
@@ -95,5 +97,10 @@ class HTML
                 $options
             </select>
         HTML;
+    }
+
+    public static function readMarkdown($markdownInput) {
+        $parsedown = new Parsedown();
+        return $parsedown->text($markdownInput);
     }
 }
