@@ -131,4 +131,36 @@ class Web
         // Return the results
         return array_unique($images); // Ensure unique URLs
     }
+
+    public static function saveWebpageSourceToFile($url, $outputFile) {
+        // Initialize a cURL session
+        $ch = curl_init();
+    
+        // Set the URL to fetch
+        curl_setopt($ch, CURLOPT_URL, $url);
+    
+        // Return the transfer as a string
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    
+        // Execute the cURL session
+        $sourceCode = curl_exec($ch);
+    
+        // Check for cURL errors
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+            return false;
+        }
+    
+        // Close the cURL session
+        curl_close($ch);
+    
+        // Save the source code to a file
+        if (file_put_contents($outputFile, $sourceCode)) {
+            echo "Webpage source code saved to $outputFile successfully.";
+            return true;
+        } else {
+            echo "Failed to save webpage source code.";
+            return false;
+        }
+    }
 }
