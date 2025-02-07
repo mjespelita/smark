@@ -15,6 +15,7 @@ namespace Smark\Smark;
  * gcd($a, $b)
  * matrixMultiply($matrixA, $matrixB)
  * gaussianElimination($matrix)
+ * convertToMoneyFormat($price)
  */
 
 class Math
@@ -285,5 +286,22 @@ class Math
         }
 
         return $solutions; // Return the solutions of the system
+    }
+
+    public static function convertToMoneyFormat($price) {
+        // Ensure the price is a valid number
+        if (!is_numeric($price)) {
+            return false; // or handle the error as per your need
+        }
+    
+        // If there's no decimal part, set it to .00
+        if (strpos($price, '.') === false) {
+            $price .= '.00';
+        }
+    
+        // Format the number as money (comma-separated thousands and 2 decimal places)
+        $formattedPrice = number_format($price, 2, '.', ',');
+        
+        return $formattedPrice;
     }
 }
