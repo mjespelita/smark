@@ -107,4 +107,75 @@ class Dater
 
         return $weekdays; // Return the array of weekdays
     }
+
+    // Returns the number of full days between two dates
+    public static function daysBetween($startDate, $endDate) {
+        $start = new DateTime($startDate);
+        $end = new DateTime($endDate);
+        return $end->diff($start)->days;
+    }
+
+    // Checks if the given date is a weekend (Saturday or Sunday)
+    public static function isWeekend($date) {
+        $dayOfWeek = (int)date('N', strtotime($date));
+        return ($dayOfWeek >= 6);
+    }
+
+    // Returns a human-readable duration from seconds (e.g. 1h 23m 45s)
+    public static function humanReadableDuration($seconds) {
+        $hours = floor($seconds / 3600);
+        $minutes = floor(($seconds % 3600) / 60);
+        $secs = $seconds % 60;
+
+        $result = '';
+        if ($hours > 0) $result .= $hours . 'h ';
+        if ($minutes > 0) $result .= $minutes . 'm ';
+        $result .= $secs . 's';
+
+        return trim($result);
+    }
+
+    // Returns the first day of the month for a given date
+    public static function firstDayOfMonth($date) {
+        return date('Y-m-01', strtotime($date));
+    }
+
+    // Returns the last day of the month for a given date
+    public static function lastDayOfMonth($date) {
+        return date('Y-m-t', strtotime($date));
+    }
+
+    // Returns whether the given year is a leap year
+    public static function isLeapYear($year) {
+        return (($year % 4 == 0) && ($year % 100 != 0)) || ($year % 400 == 0);
+    }
+
+    // Adds a number of days to a given date and returns the new date
+    public static function addDays($date, $days) {
+        $dateObj = new DateTime($date);
+        $dateObj->modify("+{$days} days");
+        return $dateObj->format('Y-m-d');
+    }
+
+    // Subtracts a number of days from a given date and returns the new date
+    public static function subtractDays($date, $days) {
+        $dateObj = new DateTime($date);
+        $dateObj->modify("-{$days} days");
+        return $dateObj->format('Y-m-d');
+    }
+
+    // Gets the relative date and time. Ex: 1 hour ago, 1 day ago
+    public static function timeAgo($date) {
+        $timestamp = is_numeric($date) ? $date : strtotime($date);
+        $diff = time() - $timestamp;
+
+        if ($diff < 60) return 'just now';
+        if ($diff < 3600) return floor($diff / 60) . ' minute' . (floor($diff / 60) === 1 ? '' : 's') . ' ago';
+        if ($diff < 86400) return floor($diff / 3600) . ' hour' . (floor($diff / 3600) === 1 ? '' : 's') . ' ago';
+        if ($diff < 604800) return floor($diff / 86400) . ' day' . (floor($diff / 86400) === 1 ? '' : 's') . ' ago';
+        if ($diff < 2592000) return floor($diff / 604800) . ' week' . (floor($diff / 604800) === 1 ? '' : 's') . ' ago';
+        if ($diff < 31536000) return floor($diff / 2592000) . ' month' . (floor($diff / 2592000) === 1 ? '' : 's') . ' ago';
+
+        return floor($diff / 31536000) . ' year' . (floor($diff / 31536000) === 1 ? '' : 's') . ' ago';
+    }
 }

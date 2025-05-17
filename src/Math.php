@@ -288,6 +288,7 @@ class Math
         return $solutions; // Return the solutions of the system
     }
 
+    // Method that converts integer into money format. Ex: 20000 = 20,000.00
     public static function convertToMoneyFormat($price) {
         // Ensure the price is a valid number
         if (!is_numeric($price)) {

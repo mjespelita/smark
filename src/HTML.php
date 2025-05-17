@@ -10,6 +10,7 @@ namespace Smark\Smark;
  * filamentMonths()
  * filamentYears($startYear)
  * readMarkdown()
+ * generateBootstrapForm($action, $method, $buttonText, $inputs = [])
  */
 
 use chillerlan\QRCode\QRCode;
@@ -99,8 +100,146 @@ class HTML
         HTML;
     }
 
+    // Reads markdown to html format.
     public static function readMarkdown($markdownInput) {
         $parsedown = new Parsedown();
         return $parsedown->text($markdownInput);
     }
+
+    public static function generateBootstrapForm($action, $method, $buttonText, $buttonClass, $buttonId, $inputs = []) {
+        $formHtml = "<form action=\"" . htmlspecialchars($action) . "\" method=\"" . htmlspecialchars($method) . "\" enctype=\"multipart/form-data\">\n";
+
+        foreach ($inputs as $input) {
+            $type = htmlspecialchars($input['type'] ?? 'text');
+            $placeholder = htmlspecialchars($input['placeholder'] ?? '');
+            $classes = htmlspecialchars(implode(' ', array_map('trim', explode(',', $input['classes'] ?? 'form-control'))));
+            $id = htmlspecialchars($input['id'] ?? '');
+            $name = htmlspecialchars($input['name'] ?? '');
+            $options = $input['options'] ?? []; // For select, radio, checkbox
+            $label = htmlspecialchars($input['label'] ?? ucfirst($name));
+
+            $formHtml .= "<div class=\"mb-3\">\n";
+
+            if ($type !== 'hidden' && $type !== 'submit') {
+                $formHtml .= "<label for=\"$id\" class=\"form-label\">$label</label>\n";
+            }
+
+            switch ($type) {
+                case 'select':
+                    $formHtml .= "<select class=\"$classes\" id=\"$id\" name=\"$name\">\n";
+                    foreach ($options as $value => $text) {
+                        $formHtml .= "<option value=\"" . htmlspecialchars($value) . "\">" . htmlspecialchars($text) . "</option>\n";
+                    }
+                    $formHtml .= "</select>\n";
+                    break;
+
+                case 'radio':
+                case 'checkbox':
+                    foreach ($options as $value => $text) {
+                        $formHtml .= <<<HTML
+                            <div class="form-check">
+                                <input class="form-check-input" type="$type" name="{$name}" id="{$id}_{$value}" value="{$value}">
+                                <label class="form-check-label" for="{$id}_{$value}">{$text}</label>
+                            </div>\n
+                        HTML;
+                    }
+                    break;
+
+                case 'textarea':
+                    $formHtml .= "<textarea class=\"$classes\" id=\"$id\" name=\"$name\" placeholder=\"$placeholder\"></textarea>\n";
+                    break;
+
+                default:
+                    $formHtml .= "<input type=\"$type\" class=\"$classes\" id=\"$id\" name=\"$name\" placeholder=\"$placeholder\">\n";
+                    break;
+            }
+
+            $formHtml .= "</div>\n";
+        }
+
+        $formHtml .= <<<HTML
+                <button type="submit" class="btn btn-primary $buttonClass" id="$buttonId">$buttonText</button>
+            </form>
+        HTML;
+
+        return $formHtml;
+
+        // Usage
+
+        // echo HTML::generateBootstrapForm(
+        //     '/submit.php',
+        //     'POST',
+        //     [
+        //         [
+        //             'type' => 'text',
+        //             'placeholder' => 'Full Name',
+        //             'classes' => 'form-control',
+        //             'id' => 'full_name',
+        //             'name' => 'full_name',
+        //             'label' => 'Your Full Name'
+        //         ],
+        //         [
+        //             'type' => 'email',
+        //             'placeholder' => 'Enter email',
+        //             'classes' => 'form-control',
+        //             'id' => 'email',
+        //             'name' => 'email'
+        //         ],
+        //         [
+        //             'type' => 'select',
+        //             'id' => 'country',
+        //             'name' => 'country',
+        //             'classes' => 'form-select',
+        //             'options' => [
+        //                 'ph' => 'Philippines',
+        //                 'us' => 'United States',
+        //                 'uk' => 'United Kingdom'
+        //             ],
+        //             'label' => 'Select Country'
+        //         ],
+        //         [
+        //             'type' => 'radio',
+        //             'id' => 'gender',
+        //             'name' => 'gender',
+        //             'options' => [
+        //                 'male' => 'Male',
+        //                 'female' => 'Female'
+        //             ],
+        //             'label' => 'Gender'
+        //         ],
+        //         [
+        //             'type' => 'checkbox',
+        //             'id' => 'hobbies',
+        //             'name' => 'hobbies[]',
+        //             'options' => [
+        //                 'reading' => 'Reading',
+        //                 'traveling' => 'Traveling'
+        //             ],
+        //             'label' => 'Hobbies'
+        //         ],
+        //         [
+        //             'type' => 'textarea',
+        //             'placeholder' => 'Write your message...',
+        //             'id' => 'message',
+        //             'name' => 'message',
+        //             'classes' => 'form-control',
+        //             'label' => 'Message'
+        //         ],
+        //         [
+        //             'type' => 'file',
+        //             'id' => 'resume',
+        //             'name' => 'resume',
+        //             'label' => 'Upload Resume'
+        //         ],
+        //         [
+        //             'type' => 'date',
+        //             'id' => 'birth_date',
+        //             'name' => 'birth_date',
+        //             'label' => 'Birth Date'
+        //         ]
+        //     ]
+        // );
+
+    }
+
 }
