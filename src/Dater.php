@@ -12,14 +12,20 @@ namespace Smark\Smark;
  * humanReadableMonth($date)                // Month word
  * getWeekdays($startDate, $endDate)
  * getDays($startDate, $endDate)
+ * unixToDate($timestamp)                   // converts unix date to actual readable date (2025-08-11)
+ * dateToUnix($date)                        // converts actual readable date to unix timestamp 
  */
 
 use DateInterval;
 use DatePeriod;
 use DateTime;
+use DateTimeZone;
 
 class Dater
 {
+
+    private static $tz = 'Asia/Manila';
+
     // Calculates age based on the provided date of birth
     public static function calculateAge($dob) {
         $birthDate = new DateTime($dob); // Create a DateTime object for the date of birth
@@ -177,5 +183,36 @@ class Dater
         if ($diff < 31536000) return floor($diff / 2592000) . ' month' . (floor($diff / 2592000) === 1 ? '' : 's') . ' ago';
 
         return floor($diff / 31536000) . ' year' . (floor($diff / 31536000) === 1 ? '' : 's') . ' ago';
+    }
+
+    // Converts Unix timestamp (seconds or milliseconds)
+    // to date string (YYYY-MM-DD or YYYY-MM-DD HH:MM:SS) in Asia/Manila
+    public static function unixToDate($timestamp) {
+        if ($timestamp > 9999999999) {
+            // Milliseconds → convert to seconds
+            $timestamp = (int) floor($timestamp / 1000);
+            $dt = new DateTime("@$timestamp"); 
+            $dt->setTimezone(new DateTimeZone(self::$tz));
+            return $dt->format("Y-m-d H:i:s");
+        } else {
+            // Seconds
+            $dt = new DateTime("@$timestamp"); 
+            $dt->setTimezone(new DateTimeZone(self::$tz));
+            return $dt->format("Y-m-d");
+        }
+    }
+
+    // Converts date string (YYYY-MM-DD or YYYY-MM-DD HH:MM:SS)
+    // to Unix timestamp (seconds or milliseconds) in Asia/Manila
+    public static function dateToUnix($date) {
+        $dt = new DateTime($date, new DateTimeZone(self::$tz));
+
+        // If input has time → return milliseconds
+        if (preg_match('/\d{2}:\d{2}(:\d{2})?/', $date)) {
+            return $dt->getTimestamp() * 1000;
+        }
+
+        // Pure date → return seconds
+        return $dt->getTimestamp();
     }
 }
