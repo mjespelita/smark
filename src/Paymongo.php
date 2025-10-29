@@ -6,7 +6,7 @@ namespace Smark\Smark;
  * createPaymentLink($secretKey, $amount, $description, $remarks)
  */
 
-class Payment
+class Paymongo
 {
     /**
      * Create a PayMongo payment link
